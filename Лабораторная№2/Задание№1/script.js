@@ -25,3 +25,7 @@ if (userLogin === existUserIdLogin && userPassword === existUserIdPassword) {
 } else {
     alert("Логин и (или) Пароль введены неверно");
 }
+/* 
+'5' === 5 false
+'5' == 5 true  */
+
