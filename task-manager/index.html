@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Менеджер задач</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Менеджер задач</h1>
+        <p class="subtitle">CRUD-приложение на чистом JavaScript</p>
+
+        <!-- ФОРМА ДОБАВЛЕНИЯ / РЕДАКТИРОВАНИЯ -->
+        <form id="task-form">
+            <div class="form-group">
+                <input type="text" id="task-title" placeholder="Название задачи" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <textarea id="task-desc" placeholder="Описание задачи..." rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <select id="task-priority">
+                    <option value="low">🟢 Низкий приоритет</option>
+                    <option value="medium" selected>🟡 Средний приоритет</option>
+                    <option value="high">🔴 Высокий приоритет</option>
+                </select>
+                <button type="submit" id="submit-btn">➕ Добавить задачу</button>
+            </div>
+        </form>
+
+        <!-- ПАНЕЛЬ УПРАВЛЕНИЯ (Фильтр + Поиск + Сортировка)  -->
+        <div class="controls-bar">
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="all">📋 Все</button>
+                <button class="filter-btn" data-filter="active">🔄 Активные</button>
+                <button class="filter-btn" data-filter="completed">✅ Завершённые</button>
+            </div>
+            
+            <div class="search-group">
+                <input type="search" id="search-input" placeholder="🔍 Поиск по названию..." autocomplete="off">
+            </div>
+
+            <div class="sort-group">
+                <label>Сортировка:</label>
+                <select id="sort-select">
+                    <option value="newest">📅 Новые сначала</option>
+                    <option value="oldest">📅 Старые сначала</option>
+                    <option value="priority-high">⭐ Высокий приоритет</option>
+                    <option value="priority-low">⭐ Низкий приоритет</option>
+                </select>
+            </div>
+        </div>
+
+        <!--  СЧЁТЧИК ЗАДАЧ  -->
+        <div class="counters" id="counters">
+            <span>📊 Всего: <strong id="total-count">0</strong></span>
+            <span>🔄 Активных: <strong id="active-count">0</strong></span>
+            <span>✅ Завершённых: <strong id="completed-count">0</strong></span>
+        </div>
+
+        <!--  КОНТЕЙНЕР ДЛЯ СПИСКА ЗАДАЧ  -->
+        <div id="task-list" class="task-list"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
