@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Погодное приложение | Open-Meteo API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container" id="app-container">
+        <div class="weather-app">
+            
+            <header class="app-header">
+                <h1>🌤️ Погодный гид</h1>
+                <p class="subtitle">Данные от Open-Meteo (без API ключа)</p>
+            </header>
+
+            <!-- ПАНЕЛЬ ПОИСКА -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="city-input" placeholder="Введите город (например: Москва, London, Токио)" autocomplete="off">
+                    <button id="search-btn" class="btn-primary">🔍 Найти</button>
+                    <button id="location-btn" class="btn-location">📍 Моё местоположение</button>
+                </div>
+            </div>
+
+            <!-- ИЗБРАННЫЕ ГОРОДА -->
+            <div class="favorites-section">
+                <div class="favorites-header">
+                    <span>⭐ Избранные города (макс. 5)</span>
+                    <button id="clear-favorites" class="clear-favs" title="Очистить избранное">🗑️</button>
+                </div>
+                <div class="favorites-list" id="favorites-list"></div>
+            </div>
+
+            <!-- ОСНОВНАЯ ИНФОРМАЦИЯ О ПОГОДЕ -->
+            <div class="weather-main">
+                <div class="weather-card">
+                    <div class="city-header">
+                        <h2 id="city-name">--</h2>
+                        <div class="favorite-star" id="favorite-star">☆</div>
+                    </div>
+                    <div class="weather-temp">
+                        <img id="weather-icon" src="" alt="иконка погоды" class="weather-icon">
+                        <div class="temp-info">
+                            <div class="current-temp" id="temp">--°C</div>
+                            <div class="feels-like" id="feels-like">Ощущается как --°C</div>
+                        </div>
+                    </div>
+                    <div class="weather-desc" id="description">--</div>
+                    
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <span class="detail-label">💧 Влажность</span>
+                            <span class="detail-value" id="humidity">--%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">🌬️ Ветер</span>
+                            <span class="detail-value" id="wind">-- км/ч</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">📊 Давление</span>
+                            <span class="detail-value" id="pressure">-- мм рт. ст.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРОГНОЗ НА 5 ДНЕЙ -->
+            <div class="forecast-section">
+                <h3>📅 Прогноз на 5 дней</h3>
+                <div class="forecast-list" id="forecast-list"></div>
+            </div>
+
+            <div class="error-message" id="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

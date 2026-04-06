@@ -1,0 +1,413 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    transition: background 0.5s ease;
+}
+
+/* Динамический фон (меняется в зависимости от погоды) */
+.app-container {
+    min-height: 100vh;
+    padding: 20px;
+    transition: background 0.5s ease;
+}
+
+/* Разные фоны для разных погодных условий */
+.app-container.clear {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.app-container.clouds {
+    background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+}
+.app-container.rain {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+}
+.app-container.snow {
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+}
+.app-container.thunderstorm {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+.app-container.default {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.weather-app {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== ШАПКА ===== */
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* ===== ПОИСК ===== */
+.search-section {
+    margin-bottom: 25px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#city-input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+#city-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-primary, .btn-location {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-location {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-location:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+}
+
+/* ===== ИЗБРАННЫЕ ГОРОДА ===== */
+.favorites-section {
+    background: #f7fafc;
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+.clear-favs {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.clear-favs:hover {
+    background: #fed7d7;
+    transform: scale(1.05);
+}
+
+.favorites-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.fav-city {
+    background: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+.fav-city:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ===== ОСНОВНАЯ КАРТОЧКА ПОГОДЫ ===== */
+.weather-main {
+    margin-bottom: 30px;
+}
+
+.weather-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.city-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.city-header h2 {
+    font-size: 2rem;
+    color: #2d3748;
+}
+
+.favorite-star {
+    font-size: 32px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #cbd5e0;
+}
+
+.favorite-star.active {
+    color: #f6ad55;
+    text-shadow: 0 0 5px rgba(246, 173, 85, 0.5);
+}
+
+.favorite-star:hover {
+    transform: scale(1.1);
+}
+
+.weather-temp {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.weather-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.current-temp {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.feels-like {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.weather-desc {
+    font-size: 1.2rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f7fafc;
+    border-radius: 12px;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.detail-value {
+    color: #2d3748;
+    font-weight: 500;
+}
+
+/* ===== ПРОГНОЗ ===== */
+.forecast-section h3 {
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+.forecast-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.forecast-card {
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.forecast-date {
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.forecast-icon {
+    width: 60px;
+    height: 60px;
+    margin: 10px auto;
+}
+
+.forecast-temp {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.forecast-desc {
+    font-size: 0.8rem;
+    color: #718096;
+    margin-top: 5px;
+    text-transform: capitalize;
+}
+
+/* ===== СООБЩЕНИЯ ОБ ОШИБКАХ ===== */
+.error-message {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #fed7d7;
+    color: #742a2a;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ===== АДАПТИВНОСТЬ (Mobile First) ===== */
+@media (max-width: 768px) {
+    .weather-app {
+        padding: 20px;
+    }
+    
+    .search-box {
+        flex-direction: column;
+    }
+    
+    .btn-primary, .btn-location {
+        width: 100%;
+    }
+    
+    .weather-temp {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .current-temp {
+        font-size: 2.5rem;
+    }
+    
+    .weather-icon {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .city-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .forecast-list {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-app {
+        padding: 15px;
+    }
+    
+    .forecast-card {
+        padding: 10px;
+    }
+    
+    .forecast-temp {
+        font-size: 1rem;
+    }
+}
